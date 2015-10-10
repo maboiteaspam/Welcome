@@ -1,0 +1,27 @@
+{
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "name": "c/welcome",
+  "require": {
+    "silex/silex": "~1.3",
+    "symfony/form": "^2.7",
+    "symfony/validator": "^2.7",
+    "c/foundation": "dev-master",
+    "c/bootstrap": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "C\\Welcome\\": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../Foundation"
+    },
+    {
+    "type": "path",
+      "url": "../Bootstrap"
+    }
+  ]
+}

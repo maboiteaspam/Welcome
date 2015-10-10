@@ -1,0 +1,31 @@
+---
+
+# If you want to write
+# a block-commented Haiku
+# you'll need three pound signs
+
+meta:
+  id: welcome
+  description: |
+    Layout for Welcome index page.
+
+structure:
+  - import: HTML:/1-column.yml
+    body_content:
+      set_template: Welcome:/index.php
+      set_default_data:
+        layouts:
+          - index.yml
+          - layout1.yml
+          - layout2.yml
+        errors:
+      add_assets:
+        template_head_css:
+          - Welcome:/index.css
+      inject_jquery:
+        version: 2.1.3
+        target: page_footer_js
+  - show_dashboard:
+      - time_travel
+      - structure_visualizer
+      - stats
