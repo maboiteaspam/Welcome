@@ -17,11 +17,11 @@
   "repositories": [
     {
       "type": "path",
-      "url": "../Foundation"
+      "url": "..\\Bootstrap"
     },
     {
-    "type": "path",
-      "url": "../Bootstrap"
+      "type": "path",
+      "url": "..\\Foundation"
     }
   ]
 }
