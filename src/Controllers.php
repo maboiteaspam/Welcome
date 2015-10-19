@@ -8,9 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 class Controllers {
 
 
-    public function __construct() {
-    }
-
+    /**
+     * Recursive iteration of a directory.
+     *
+     * @param $basePath
+     * @return \RecursiveIteratorIterator
+     */
     protected function recursiveReadPath ($basePath) {
         $Directory = new \RecursiveDirectoryIterator($basePath);
         $filter = new \RecursiveCallbackFilterIterator($Directory, function ($current, $key, $iterator) {
@@ -23,6 +26,13 @@ class Controllers {
         return $Iterator;
     }
 
+
+    /**
+     * Displays index page of welcome module with the lists of
+     * layouts found into src/layouts.
+     *
+     * @return callable
+     */
     public function index() {
         return function (Application $app, Request $request) {
 
@@ -56,13 +66,18 @@ class Controllers {
     }
 
 
+    /**
+     * Renders provided layout file in url.
+     *
+     * @return callable
+     */
     public function yml() {
         return function (Application $app, Request $request, $file) {
             Transforms::transform()
                 ->setHelpers($app['modern.layout.helpers'])
                 ->setStore($app['modern.layout.store'])
                 ->setLayout($app['layout'])
-                ->importFile("Welcome:/$file.yml");
+                ->importFile("src/layouts/$file.yml");
             return $app['layout.responder']->respond($app['layout'], $request);
         };
     }
