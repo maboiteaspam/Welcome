@@ -3,10 +3,10 @@ namespace C\Welcome;
 
 use C\ModernApp\File\Transforms;
 use Silex\Application;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 class Controllers {
-
 
     /**
      * Recursive iteration of a directory.
@@ -28,7 +28,7 @@ class Controllers {
 
 
     /**
-     * Displays index page of welcome module with the lists of
+     * Displays index page of Welcome module with the lists of
      * layouts found into src/layouts.
      *
      * @return callable
@@ -79,6 +79,64 @@ class Controllers {
                 ->setLayout($app['layout'])
                 ->importFile("src/layouts/$file.yml");
             return $app['layout.responder']->respond($app['layout'], $request);
+        };
+    }
+
+
+    /**
+     * Given a block with a form attached to it,
+     * this action pick the form and submit it.
+     *
+     * @return callable
+     */
+    public function form() {
+        return function (Application $app, Request $request, $formId, $block, $file) {
+            $layout = Transforms::transform()
+                ->setHelpers($app['modern.layout.helpers'])
+                ->setStore($app['modern.layout.store'])
+                ->setLayout($app['layout'])
+                ->importFile("src/layouts/$file.yml")
+                ->getLayout();
+
+            /*  @var $form Form */
+            $form = $layout->get("$block")->data["$formId"]->form;
+
+            $form->handleRequest($request);
+
+
+            if ($form->isValid()) {
+                echo "Form is valid<br>";
+            } else {
+                echo "Form is NOT valid<br>";
+            }
+
+            $data = $form->getData();
+
+            echo "Form data are <br/>";
+            dump($data);
+            echo "Post data are <br/>";
+            dump($_POST);
+
+            echo "Errors are <br/>";
+            $errors = $form->getErrors(true);
+            if (count($errors) > 0) {
+                foreach ($errors as $error) {
+                    dump($error);
+                }
+            } else {
+                echo 'The author is valid';
+            }
+
+            echo "Cliked button is <br/>";
+            if ($form->get('subscribe')->isClicked()) {
+                echo "subscribe ";
+            }
+
+            if ($form->get('unsubscribe')->isClicked()) {
+                echo "unsubscribe";
+            }
+
+            return "";
         };
     }
 }

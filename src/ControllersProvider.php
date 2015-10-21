@@ -1,9 +1,11 @@
 <?php
 namespace C\Welcome;
 
+use C\ModernApp\File\Helpers\FormViewHelper;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class ControllersProvider implements
     ServiceProviderInterface,
@@ -16,19 +18,30 @@ class ControllersProvider implements
      **/
     public function register(Application $app)
     {
-        /*
-        $app['service.name'] = $app->share(function() use ($app) {
-            return new \stdClass();
-        });
-        $app['service.name'] = $app->extend("service.name", function($value, $app) use ($app) {
-            $value[] = "some";
-            return $value;
-        });
-         */
         $app['welcome.controllers'] = $app->share(function() use ($app) {
             $controllers = new Controllers();
             return $controllers;
         });
+
+        // Configure FormViewHelper to set default submit method
+        // on forms created via layout files
+        // to a special controllers which can submit them.
+        if (isset($app['modern.layout.helpers'])) {
+            $app['modern.layout.helpers'] = $app->extend("modern.layout.helpers", function($helpers) {
+                $formViewHelper = $helpers->find("FormView");
+                /* @var $formViewHelper FormViewHelper */
+                $formViewHelper->setSubmitRoute("yml_file_post"); // forms will be submitted to that controllers
+                return $helpers;
+            });
+            $app->before(function (Request $r) use($app) {
+                $file = $r->attributes->get("file");
+                if ($file) {
+                    $formViewHelper = $app['modern.layout.helpers']->find("FormView");
+                    /* @var $formViewHelper FormViewHelper */
+                    $formViewHelper->setRouteParameters(["file"=>"$file"]); // needed to re inject this param
+                }
+            });
+        }
     }
 
     /**
@@ -57,14 +70,22 @@ class ControllersProvider implements
     {
         $controllers = $app['controllers_factory'];
 
+        // Index controller will list the available layouts.
         $controllers->get( '/',
             $app['welcome.controllers']->index()
         )->bind ('home');
 
+        // This controller will render a layout file
         $controllers->get( '/{file}.yml',
             $app['welcome.controllers']->yml()
         )->assert("file", ".+"
         )->bind ('yml_file');
+
+        // This controller will pick a form from a block and submit it.
+        $controllers->post( '/submit/{formId}/{block}/{file}.yml',
+            $app['welcome.controllers']->form()
+        )->bind ('yml_file_post');
+
         return $controllers;
     }
 }
