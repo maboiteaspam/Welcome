@@ -1,3 +1,16 @@
+--
+
+# YML is really cool format to use
 welcome: Welcome ddd
-button.save: submit
+
+# It is always simple and straight to the point.
+subscribe: I want to subscibe the newsletter
+unsubscribe: sign-off
+
+# It handle many delcaration forms without effort.
+Your email: Please type in your email
+
+# And if you face an edge case like this key name containing the character ':', just quote it, it works too !
 "let s test some: translation key with special character inside ':' ": whatever
+
+# yml enthousiasts.
