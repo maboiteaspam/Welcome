@@ -11,8 +11,7 @@ return [
     'esi.secret'            => 'secret',
     'form.secret'           => md5(__DIR__.'/run/'),
 
-    "locale_fallbacks"    => ['en', 'fr', 'zh'],
-    "security.firewalls"    => [],
+    "locale_fallbacks"      => ['en', 'fr', 'zh'],
 
     'monolog.logfile'       => '%run.path%/development.log',
 
@@ -59,13 +58,4 @@ return [
     ],
     'assets.bridge_file_path' => '%project.path%/run/bridge.php',
 
-    'capsule.connections' => [
-        "default"=>[
-            'driver'    => 'sqlite',
-            'database'  => '%project.path%/run/database.sqlite',
-            'prefix'    => '',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-        ],
-    ],
 ];
