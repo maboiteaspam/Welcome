@@ -38,7 +38,7 @@ $app->mount('/', $welcome);
 
 ### Description
 
-The main purpose of this module is to expose three new __routes__.
+This module expose three new __routes__.
 
 __home__
 
@@ -51,4 +51,38 @@ Render a selected layout yml file.
 __yml_file_post__
 
 Submit a form defined within the layout and render its errors.
+
+### Other notes
+
+You can get some interesting information about common tasks and resources
+by taking a look to those files
+
+__Boot__
+
+Please check
+
+- the bootstrap file which declare all the application modules
+https://github.com/maboiteaspam/Welcome/blob/master/bootstrap.php
+
+- the app file which execute a web request against the application
+https://github.com/maboiteaspam/Welcome/blob/master/app.php
+
+- the cli file which execute a cli invocation of the application
+https://github.com/maboiteaspam/Welcome/blob/master/cli.php
+
+__Intl__
+
+Please check some examples of `yaml` usage for intl.
+
+the file https://github.com/maboiteaspam/Welcome/blob/master/src/intl/en.yml
+
+__forms__
+
+Please check
+
+- the layout file example with comments
+https://github.com/maboiteaspam/Welcome/blob/master/src/layouts/formDemo.yml
+
+- The Form data class example with constraint declaration
+https://github.com/maboiteaspam/Welcome/blob/master/src/FormDemo.php
 

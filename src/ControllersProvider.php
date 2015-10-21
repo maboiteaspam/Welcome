@@ -12,7 +12,9 @@ class ControllersProvider implements
     ControllerProviderInterface
 {
     /**
-     * Register services.
+     * Declare a new controllers factory,
+     * set default submit route on the formViewHelper
+     * inject file parameter for the url generator.
      *
      * @param Application $app
      **/
@@ -47,7 +49,7 @@ class ControllersProvider implements
     }
 
     /**
-     * Boot and configure services.
+     * Register Welcome alias on file systems.
      *
      * @param Application $app Silex application instance.
      * @return void
@@ -68,6 +70,10 @@ class ControllersProvider implements
         }
     }
 
+    /**
+     * @param Application $app
+     * @return Controllers
+     */
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];

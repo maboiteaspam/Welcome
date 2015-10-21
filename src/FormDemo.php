@@ -15,6 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package C\Welcome
  */
 class FormDemo{
+    /*
+     * As of symfony rules,
+     * if you attach an object to your form (createFormBuilder($object...);)
+     * It must have a property for each field in the form.
+     * see also per element mapped option.
+     */
+
     public $email;
     public $name;
     public $names;
@@ -30,11 +37,18 @@ class FormDemo{
     public $password;
     public $hidden_field;
 
+    /**
+     * Attach new constraint on name property to require a min-length=20
+     *
+     * @param ClassMetadata $metadata
+     */
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('name', new Assert\Length(array('min' => 20)));
         // then you can add more like this.
+
         // beware that they are not de duplicated with those created from layout files.
+
 //        $metadata->addPropertyConstraint('name', new Assert\NotBlank([]));
 //        $metadata->addPropertyConstraint('properties', new Assert\Valid([]));
     }
