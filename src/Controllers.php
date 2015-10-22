@@ -1,9 +1,11 @@
 <?php
 namespace C\Welcome;
 
+use C\Form\FormErrorHelper;
 use C\ModernApp\File\Transforms;
 use Silex\Application;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class Controllers {
@@ -16,7 +18,7 @@ class Controllers {
      */
     protected function recursiveReadPath ($basePath) {
         $Directory = new \RecursiveDirectoryIterator($basePath);
-        $filter = new \RecursiveCallbackFilterIterator($Directory, function ($current, $key, $iterator) {
+        $filter = new \RecursiveCallbackFilterIterator($Directory, function ($current) {
             if (in_array($current->getFilename(), ['..'])) {
                 return false;
             }
@@ -90,6 +92,35 @@ class Controllers {
      * @return callable
      */
     public function form() {
+        return function (Application $app, Request $request, $formId, $block, $file) {
+            $layout = Transforms::transform()
+                ->setHelpers($app['modern.layout.helpers'])
+                ->setStore($app['modern.layout.store'])
+                ->setLayout($app['layout'])
+                ->importFile("src/layouts/$file.yml")
+                ->getLayout();
+
+            /*  @var $form Form */
+            $form = $layout->get("$block")->data["$formId"]->form;
+
+            $form->handleRequest($request);
+
+            // trigger validation anyway
+            $form->isValid();
+
+            $helper = new FormErrorHelper();
+            return json_encode($helper->getFormErrors($form));
+        };
+    }
+
+
+    /**
+     * Given a block with a form attached to it,
+     * this action pick the form and submit it.
+     *
+     * @return callable
+     */
+    public function form_playground() {
         return function (Application $app, Request $request, $formId, $block, $file) {
             $layout = Transforms::transform()
                 ->setHelpers($app['modern.layout.helpers'])
