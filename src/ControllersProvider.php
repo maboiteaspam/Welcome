@@ -86,6 +86,11 @@ class ControllersProvider implements
             $app['welcome.controllers']->form()
         )->bind ('yml_file_post');
 
+        // This controller will pick a form from a block and submit it.
+        $controllers->post( '/submit_playground/{formId}/{block}/{file}.yml',
+            $app['welcome.controllers']->form()
+        )->bind ('form_playground');
+
         return $controllers;
     }
 }
