@@ -32,7 +32,16 @@ class FormDemo{
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        // demo validation constraint
         $metadata->addPropertyConstraint('name', new Assert\Length(array('min' => 20)));
+        // ensure an email is well formed.
+        $metadata->addPropertyConstraint('email', new Assert\Email());
+        // add validation on a an array of values
+        $metadata->addPropertyConstraint('names', new Assert\All(array(
+            'constraints' => array(
+                new Assert\Email(),
+            ),
+        )));
         // then you can add more like this.
         // beware that they are not de duplicated with those created from layout files.
 //        $metadata->addPropertyConstraint('name', new Assert\NotBlank([]));
