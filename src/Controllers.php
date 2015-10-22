@@ -87,7 +87,12 @@ class Controllers {
 
     /**
      * Given a block with a form attached to it,
-     * this action pick the form and submit it.
+     * this route
+     * - renders the given file layout
+     * - gets the concerned block
+     * - extract the form object
+     *
+     * to submit the form and render its errors.
      *
      * @return callable
      */

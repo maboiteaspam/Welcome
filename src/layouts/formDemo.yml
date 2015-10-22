@@ -1,15 +1,27 @@
 ---
 
+# declare meta about the layout object
+#
+# so far, it is not really used.
+# Note also that it is not mandatory fields.
+# It should just help us to get a better reading of the layout render operations and resources evolved into it.
 meta:
   id: demo_form
   description: |
     Demo use and declaration of Form from a layout file.
+# beware that only the last file loaded
+# really sets the id and description of the resulting rendered layout.
 
+# Defines and chane the structure of the layout.
 structure:
+  # let's use some pre defined structure for us.
   - import: HTML:/1-column.yml
 
-    # We are going to attach a form to body_content block
+    # lets update the body_content block.
+    # It will be used to display the formDemo.
     body_content:
+      # This view expects to receive a form object as $myForm.
+      # It will demonstrate the atuomatic rendering result of a form object.
       set_template: Welcome:/formDemo.php # This view will receive a form object and process it for rendering.
       # add new asset on the document
       add_assets:
@@ -19,7 +31,7 @@ structure:
             - Form:/jquery.form.js # this lib will help to submit ajax form with file upload.
             - Form:/form-helper.js # this lib will help to manage errors display.
 
-      # This is the block node action to create a form attached to a block.
+      # Now crete a form and defines its elements.
       create_form:
         name: myForm # It is the name of the variable used into the view
         type: \C\Welcome\FormDemo # It is the underlying data object used with the form. it can inject its own validation constraint.

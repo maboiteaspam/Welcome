@@ -12,7 +12,9 @@ class ControllersProvider implements
     ControllerProviderInterface
 {
     /**
-     * Register services.
+     * Declare a new controllers factory,
+     * set default submit route on the formViewHelper
+     * inject file parameter for the url generator.
      *
      * @param Application $app
      **/
@@ -23,9 +25,9 @@ class ControllersProvider implements
             return $controllers;
         });
 
-        // Configure FormViewHelper to set default submit method
-        // on forms created via layout files
-        // to a special controllers which can submit them.
+        // Configure FormViewHelper to set a default submit method
+        // on the forms created via layout files.
+        // The targeted controller should take care of submitting the form.
         if (isset($app['modern.layout.helpers'])) {
             $app['modern.layout.helpers'] = $app->extend("modern.layout.helpers", function($helpers) {
                 $formViewHelper = $helpers->find("FormView");
@@ -34,18 +36,20 @@ class ControllersProvider implements
                 return $helpers;
             });
             $app->before(function (Request $r) use($app) {
+                // file parameter must be re injected in the helper
+                // to generate the url.
                 $file = $r->attributes->get("file");
                 if ($file) {
                     $formViewHelper = $app['modern.layout.helpers']->find("FormView");
                     /* @var $formViewHelper FormViewHelper */
-                    $formViewHelper->setRouteParameters(["file"=>"$file"]); // needed to re inject this param
+                    $formViewHelper->setRouteParameters(["file"=>"$file"]);
                 }
             });
         }
     }
 
     /**
-     * Boot and configure services.
+     * Register Welcome alias on file systems.
      *
      * @param Application $app Silex application instance.
      * @return void
@@ -66,6 +70,10 @@ class ControllersProvider implements
         }
     }
 
+    /**
+     * @param Application $app
+     * @return Controllers
+     */
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
