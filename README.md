@@ -1,6 +1,6 @@
 # C - Welcome
 
-The welcome kick-start module for a C based module.
+The welcome kick-start module for a C based module. Find more about C framework here https://github.com/maboiteaspam/Foundation
 
 ### Usage
 
