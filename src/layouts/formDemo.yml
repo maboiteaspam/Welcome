@@ -16,22 +16,35 @@ meta:
 structure:
   # let's use some pre defined structure for us.
   - import: HTML:/1-column.yml
+  # lets register assets on the document
   - register_assets:
-      alias: js-normalizer
-      path: HTML:/normalizer.js
+      alias: form-helper
+      path: Form:/form-helper.js
       version: 1.1.1
       target: page_footer_js
-      first: true
   - register_assets:
       alias: jquery.form
       path: Form:/jquery.form.js
       version: 1.1.1
       target: page_footer_js
   - register_assets:
-      alias: form-helper
-      path: Form:/form-helper.js
+      alias: jquery
+      path: jQuery:/jquery-2.1.3.min.js
+      version: 2.1.3
+      target: page_footer_js
+      first: true
+  - register_assets:
+      alias: jquery
+      path: jQuery:/jquery-1.11.3.min.js
+      version: 1.11.3
+      target: page_footer_js
+      first: true
+  - register_assets:
+      alias: js-normalizer
+      path: HTML:/normalizer.js
       version: 1.1.1
       target: page_footer_js
+      first: true
 
     # lets update the body_content block.
     # It will be used to display the formDemo.
@@ -41,6 +54,7 @@ structure:
       set_template: Welcome:/formDemo.php # This view will receive a form object and process it for rendering.
       # require assets on the document
       require:
+        - jquery:2.x || 1.x
         - js-normalizer:1.x # this lib will help to normalize javascript capabilities
         - jquery.form:1.x  # this lib will help to submit ajax form with file upload.
         - form-helper:1.x  # this lib will help to manage errors display.
@@ -245,11 +259,6 @@ structure:
             type: submit
             options:
               label: unsubscribe
-
-      # inject some asssets
-      inject_jquery:
-        version: 1.11.3
-        target: page_footer_js
 
   # add dashboard support, always a good stuff.
   - show_dashboard:
