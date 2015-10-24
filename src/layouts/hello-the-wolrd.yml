@@ -1,0 +1,47 @@
+---
+
+# provide information about the layout to be rendered
+meta:
+    id: hello-the-world
+    description: Hello the world written with a layout
+
+# describe and update the structure of the layout
+structure:
+
+  # Import a base layout which provides supports
+  # for commons task regarding an HTMl website
+  # HTML is a core module to provide such fundamentals.
+  - import: HTML:/1-column.yml
+  - register_assets:
+      alias: jquery
+      path: jQuery:/jquery-2.1.3.min.js
+      version: 2.1.3
+      target: page_footer_js
+      first: true
+  - register_assets:
+      alias: jquery
+      path: jQuery:/jquery-1.11.3.min.js
+      version: 1.11.3
+      target: page_footer_js
+      first: true
+
+  - for_facets:
+      device: !mobile
+    # select body_content node of the layout
+    # body_content was delared by HTML:/1-column.yml
+    body_content:
+      # set its body
+      body: |
+          Hello the world !
+
+  - for_facets:
+      device: mobile
+    body_content:
+      # set its body
+      body: |
+          Hello the world for mobile devices !
+
+  - show_dashboard:
+      - time_travel
+      - structure_visualizer
+      - stats
