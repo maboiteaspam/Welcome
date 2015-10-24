@@ -16,6 +16,22 @@ meta:
 structure:
   # let's use some pre defined structure for us.
   - import: HTML:/1-column.yml
+  - register_assets:
+      alias: js-normalizer
+      path: HTML:/normalizer.js
+      version: 1.1.1
+      target: page_footer_js
+      first: true
+  - register_assets:
+      alias: jquery.form
+      path: Form:/jquery.form.js
+      version: 1.1.1
+      target: page_footer_js
+  - register_assets:
+      alias: form-helper
+      path: Form:/form-helper.js
+      version: 1.1.1
+      target: page_footer_js
 
     # lets update the body_content block.
     # It will be used to display the formDemo.
@@ -23,13 +39,11 @@ structure:
       # This view expects to receive a form object as $myForm.
       # It will demonstrate the atuomatic rendering result of a form object.
       set_template: Welcome:/formDemo.php # This view will receive a form object and process it for rendering.
-      # add new asset on the document
-      add_assets:
-        template_head_js:
-            - HTML:/normalizer.js # this lib will normalize JS support.
-        page_footer_js:
-            - Form:/jquery.form.js # this lib will help to submit ajax form with file upload.
-            - Form:/form-helper.js # this lib will help to manage errors display.
+      # require assets on the document
+      require:
+        - js-normalizer:1.x # this lib will help to normalize javascript capabilities
+        - jquery.form:1.x  # this lib will help to submit ajax form with file upload.
+        - form-helper:1.x  # this lib will help to manage errors display.
 
       # Now crete a form and defines its elements.
       create_form:
