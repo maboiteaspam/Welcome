@@ -12,18 +12,7 @@ structure:
   # for commons task regarding an HTMl website
   # HTML is a core module to provide such fundamentals.
   - import: HTML:/1-column.yml
-  - register_assets:
-      alias: jquery
-      path: jQuery:/jquery-2.1.3.min.js
-      version: 2.1.3
-      target: page_footer_js
-      first: true
-  - register_assets:
-      alias: jquery
-      path: jQuery:/jquery-1.11.3.min.js
-      version: 1.11.3
-      target: page_footer_js
-      first: true
+  - import: jQuery:/register.yml # required by the dashboard @todo check if dashboard isnt yet registering jquery
 
   - for_facets:
       device: !mobile
