@@ -1,0 +1,203 @@
+---
+
+# demo form
+
+name: myForm # It is the name of the variable used into the view
+type: \C\Welcome\FormDemo # It is the underlying data object used with the form. it can inject its own validation constraint.
+attr:
+  novalidate: novalidate # This attribute it useful to disable html5 validation and thus ease testing of backend validation
+  id: myForm # set a regular attribute on the form element
+
+# Declare the members of the form under children key.
+children:
+  # An text field type
+  # http://symfony.com/doc/current/reference/forms/types/text.html
+  name:
+    type: text
+    validation:
+      - NotBlank: ~
+    options:
+      label: Your name
+      data: John
+
+  # An email field type
+  # http://symfony.com/doc/current/reference/forms/types/email.html
+  email:
+    type: email
+    options: {label: "Your email", data: "some"}
+
+  # A collection of email fields
+  # http://symfony.com/doc/current/reference/forms/types/collection.html
+  names:
+    type: collection
+    options:
+      type: email # The type of fields it set within options
+      label: Your names
+      data: [adssad , asdasda]
+
+  # A select box
+  # http://symfony.com/doc/current/reference/forms/types/choice.html
+  edmType:
+    type: choice
+    options:
+      label: Which do you want to subscribe ?
+      # Choices are the list of options
+      choices: # To set the default selected value, just re arrange order of items!
+        brand: brand newsletter
+        partner: partner newsletter
+
+  # A radiobox list
+  # http://symfony.com/doc/current/reference/forms/types/choice.html
+  velocity:
+    type: choice # It s also a choice type!
+    options:
+      label: How often do you wish to receive it ?
+      choices: [dayli, weekly, monthly]
+      data: 1 # Set the pre selected option like this
+      # It becomes a radiobox because expand option is true
+      expanded: true
+
+  # A checkbox list
+  # http://symfony.com/doc/current/reference/forms/types/choice.html
+  preferences:
+    type: choice # It s also a choice type!
+    options:
+      label: What are your prefered topics ?
+      choices: [fashion, food, IT]
+      data: [1, 2] # Set the pre selected options like this
+      # It becomes a checkbox because both multiple and expand options are true
+      multiple: true
+      expanded: true
+
+  # A date
+  # http://symfony.com/doc/current/reference/forms/types/date.html
+  date:
+    type: date
+    options:
+      label: Pick a date please
+
+  # A datetime
+  # http://symfony.com/doc/current/reference/forms/types/datetime.html
+  datetime:
+    type: datetime
+    options:
+      label: Pick a datetime please
+
+  # A time
+  # http://symfony.com/doc/current/reference/forms/types/time.html
+  time:
+    type: time
+    options:
+      label: Pick a time please
+
+  # A birthday
+  # http://symfony.com/doc/current/reference/forms/types/birthday.html
+  time:
+    type: birthday
+    options:
+      label: Tell me your birthday please
+
+  # A single checkbox
+  # http://symfony.com/doc/current/reference/forms/types/checkbox.html
+  single_checkbox:
+    type: checkbox
+    options:
+      label: Click here to accept T&Cs ?
+
+  # A single radiobox
+  # http://symfony.com/doc/current/reference/forms/types/radio.html
+  single_radio:
+    type: radio
+    options:
+      label: What does it do ?
+
+  # A file
+  # http://symfony.com/doc/current/reference/forms/types/file.html
+  file_upload:
+    type: file
+    options:
+      label: Upload your picture
+    # Let s add type validation on the file upload
+    validation:
+        - File:
+            mimeTypes:
+                - application/CEA
+
+  # A repeated, for passwords.
+  # http://symfony.com/doc/current/reference/forms/types/repeated.html
+  password:
+    type: repeated
+    options:
+      label: Your password
+
+  # An hidden input
+  # http://symfony.com/doc/current/reference/forms/types/repeated.html
+  hidden_field:
+    type: hidden
+    options:
+      label: The hidden field
+
+  # A button
+  # http://symfony.com/doc/current/reference/forms/types/button.html
+  hit_it:
+    type: button
+    options:
+      label: Hit the button
+
+  # A reset
+  # http://symfony.com/doc/current/reference/forms/types/reset.html
+  reset_form:
+    type: reset
+    options:
+      label: Reset the form
+
+
+      #region unsupported
+      # Those are not supported yet.
+      # A country field
+      # http://symfony.com/doc/current/reference/forms/types/country.html
+#          country:
+#            type: country
+#            options:
+#              label: Where do you live ?
+
+      # A language field
+      # http://symfony.com/doc/current/reference/forms/types/language.html
+#          language:
+#            type: language
+#            options:
+#              label: What do you speak ?
+
+      # A locale field
+      # http://symfony.com/doc/current/reference/forms/types/locale.html
+#          locale:
+#            type: locale
+#            options:
+#              label: Where do you come from ?
+
+      # A currency field
+      # http://symfony.com/doc/current/reference/forms/types/currency.html
+#          currency:
+#            type: currency
+#            options:
+#              label: How do you pay ?
+
+      # A timezone field
+      # http://symfony.com/doc/current/reference/forms/types/timezone.html
+#          timezone:
+#            type: timezone
+#            options:
+#              label: What time is it on your end ?
+      #endregion unsupported
+
+  # A submit button
+  subscribe:
+    type: submit
+    options:
+      label: subscribe
+
+  # Another submit button
+  unsubscribe:
+    type: submit
+    options:
+      label: unsubscribe

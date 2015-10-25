@@ -24,6 +24,16 @@ class ControllersProvider implements
             $controllers = new Controllers();
             return $controllers;
         });
+    }
+
+    /**
+     * Register Welcome alias on file systems.
+     *
+     * @param Application $app Silex application instance.
+     * @return void
+     **/
+    public function boot(Application $app)
+    {
 
         // Configure FormViewHelper to set a default submit method
         // on the forms created via layout files.
@@ -46,18 +56,11 @@ class ControllersProvider implements
                 }
             });
         }
-    }
-
-    /**
-     * Register Welcome alias on file systems.
-     *
-     * @param Application $app Silex application instance.
-     * @return void
-     **/
-    public function boot(Application $app)
-    {
         if (isset($app['assets.fs'])) {
             $app['assets.fs']->register(__DIR__.'/assets/', 'Welcome');
+        }
+        if (isset($app['forms.fs'])) {
+            $app['forms.fs']->register(__DIR__.'/forms/', 'Welcome');
         }
         if (isset($app['layout.fs'])) {
             $app['layout.fs']->register(__DIR__.'/templates/', 'Welcome');
