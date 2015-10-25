@@ -29,6 +29,8 @@ structure:
       # set its body
       body: |
           Hello the world for mobile devices !
+    ajaxify:
+      id: body_content
 
   - show_dashboard:
       - time_travel

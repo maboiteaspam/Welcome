@@ -36,6 +36,12 @@ structure:
         as: myForm # It is the name of the variable used into the view
         from: Welcome:/demoForm.yml
 
+
+  - for_facets:
+      device: mobile
+    ajaxify:
+      id: body_content
+
   # add dashboard support, always a good stuff.
   - show_dashboard:
       - time_travel

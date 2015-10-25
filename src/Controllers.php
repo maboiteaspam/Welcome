@@ -2,6 +2,7 @@
 namespace C\Welcome;
 
 use C\Form\FormErrorHelper;
+use C\Layout\Layout;
 use C\ModernApp\File\Transforms;
 use Silex\Application;
 use Symfony\Component\Form\Form;
@@ -98,6 +99,15 @@ class Controllers {
      */
     public function form() {
         return function (Application $app, Request $request, $formId, $block, $file) {
+            /* @var $layout Layout */
+            $layout = $app['layout'];
+
+            // it s mandatory to set the expected requestKind
+            $requestKind = $request->query->get('requestkind');
+            $_GET['target'] = $request->query->get('target', $block);
+            if ($requestKind)
+                $layout->getRequestMatcher()->setRequestKind($requestKind);
+
             $layout = Transforms::transform()
                 ->setHelpers($app['modern.layout.helpers'])
                 ->setStore($app['modern.layout.store'])
