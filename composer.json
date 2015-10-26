@@ -16,12 +16,12 @@
   },
   "repositories": [
     {
-      "type": "path",
-      "url": "../Bootstrap"
+      "type": "vcs",
+      "url": "git@github.com:maboiteaspam/Bootstrap.git"
     },
     {
-      "type": "path",
-      "url": "../Foundation"
+      "type": "vcs",
+      "url": "git@github.com:maboiteaspam/Foundation.git"
     }
   ]
 }
