@@ -1,7 +1,7 @@
 <?php
 namespace C\Welcome;
 
-use C\ModernApp\File\Helpers\FormViewHelper;
+use C\Form\FormLayoutFileHelper;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Silex\ControllerProviderInterface;
@@ -40,9 +40,11 @@ class ControllersProvider implements
         // The targeted controller should take care of submitting the form.
         if (isset($app['modern.layout.helpers'])) {
             $app['modern.layout.helpers'] = $app->extend("modern.layout.helpers", function($helpers) {
-                $formViewHelper = $helpers->find("FormView");
-                /* @var $formViewHelper FormViewHelper */
-                $formViewHelper->setSubmitRoute("yml_file_post"); // forms will be submitted to that controllers
+                $formLayoutHelper = $helpers->find("FormLayoutFile");
+                if ($formLayoutHelper) {
+                    /* @var $formViewHelper FormLayoutFileHelper */
+                    $formLayoutHelper->setSubmitRoute("yml_file_post"); // forms will be submitted to that controllers
+                }
                 return $helpers;
             });
             $app->before(function (Request $r) use($app) {
@@ -50,9 +52,11 @@ class ControllersProvider implements
                 // to generate the url.
                 $file = $r->attributes->get("file");
                 if ($file) {
-                    $formViewHelper = $app['modern.layout.helpers']->find("FormView");
-                    /* @var $formViewHelper FormViewHelper */
-                    $formViewHelper->setRouteParameters(["file"=>"$file"]);
+                    $formLayoutHelper = $app['modern.layout.helpers']->find("FormLayoutFile");
+                    if ($formLayoutHelper) {
+                        /* @var $formLayoutHelper FormLayoutFileHelper */
+                        $formLayoutHelper->setRouteParameters(["file"=>"$file"]);
+                    }
                 }
             });
         }
