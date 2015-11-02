@@ -23,5 +23,9 @@
       "type": "vcs",
       "url": "git@github.com:maboiteaspam/Foundation.git"
     }
-  ]
+  ],
+  "require-dev": {
+    "symfony/browser-kit": "2.x",
+    "phpunit/phpunit": " 5.0.*"
+  }
 }
