@@ -54,6 +54,19 @@ __yml_file_post__
 
 Submit a form defined within the layout and render its errors.
 
+### Tests
+
+To run the tests, please install `phpunit`.
+
+`c2-bin get-phpunit` can help you to get ready.
+
+To run it,
+```
+php phpunit.phar
+phpunit
+c2-bin phpunit
+```
+
 ### Other notes
 
 You can get some interesting information about common tasks and resources
