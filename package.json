@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "name": "welcome",
+  "version": "1.0.0",
+  "description": "Gruntfile for Welcome module of C framework",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maboiteaspam/Welcome.git"
+  },
+  "author": "maboiteaspam",
+  "license": "WTF",
+  "bugs": {
+    "url": "https://github.com/maboiteaspam/Welcome/issues"
+  },
+  "homepage": "https://github.com/maboiteaspam/Welcome#readme",
+  "devDependencies": {
+    "grunt-pageres": "^1.5.0",
+    "c2-bin": "maboiteaspam/c2-bin"
+  }
+}
