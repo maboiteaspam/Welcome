@@ -18,15 +18,25 @@ $configTokens = [
 // by now, boot
 require 'vendor/autoload.php';
 
-// use default C bootstrap for convenience.
+// use default C bootstrap, for convenience.
 use \C\Bootstrap\Common as BootHelper;
 $bootHelper = new BootHelper();
 
-// this is a regular silex app.
-$app = $bootHelper->register($runtime, $configTokens);
+/* @var $app \Silex\Application*/
+$bootHelper->setup($runtime, $configTokens);
 
-// add additional modules here
+// add additional modules here,
+// core or web
+
+// register additional cli modules on $app
+//$bootHelper->register($service, $runtime);
+
 $welcome = new C\Welcome\ControllersProvider();
-$app->register($welcome);
+$bootHelper->register($welcome);
+
+// disable a module by its service provider FQ class name, or similar
+// $disabled        = $bootHelper->disable('Translator');
+// $service         = $disabled[0];
+// $serviceRuntime  = $disabled[1];
 
 return $bootHelper;

@@ -1,10 +1,12 @@
 <?php
-// get the app bootstrapped
+/* @var $bootHelper \C\Bootstrap\Common */
 $bootHelper = require("bootstrap.php");
 
-// get the app and run it as a regular silex app.
-$app = $bootHelper->app;
+// boot an app
+$app = $bootHelper->boot();
 
+// ...then mount the web modules
 $app->mount('/', $welcome);
 
-$app->run();
+// run the web instance
+$bootHelper->run();
