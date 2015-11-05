@@ -6,6 +6,7 @@ $bootHelper = require("bootstrap.php");
 $app = $bootHelper->boot();
 
 // ...then mount the web modules
+/* @var $Welcome \C\Welcome\ControllersProvider */
 $app->mount('/', $welcome);
 
 // run the web instance

@@ -22,7 +22,6 @@ require 'vendor/autoload.php';
 use \C\Bootstrap\Common as BootHelper;
 $bootHelper = new BootHelper();
 
-/* @var $app \Silex\Application*/
 $bootHelper->setup($runtime, $configTokens);
 
 // add additional modules here,
