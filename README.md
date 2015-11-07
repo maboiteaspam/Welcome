@@ -16,8 +16,25 @@ See more about the `c2-bin generate` command at https://github.com/maboiteaspam/
 
 ## Install
 
+Until the module is published,
+add this repository to the `composer` file
+then run `composer update`.
 ```
-php composer require git@github.com:maboiteaspam/Welcome.git
+# composer.json
+,
+    {
+      "type": "git",
+      "url": "git@github.com:maboiteaspam/Welcome.git
+    }
+
+shell
+# composer update
+```
+
+or run `c2-bin require-gh -m=...`
+
+```
+c2-bin require-gh -m=maboiteaspam/Welcome
 ```
 
 ## Register
