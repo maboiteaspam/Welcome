@@ -1,6 +1,5 @@
 <?php
-
-namespace Silex\Tests;
+namespace C\Welcome\Tests;
 
 use C\Welcome\ControllersProvider;
 use Silex\Application;
